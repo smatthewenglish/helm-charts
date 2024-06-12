@@ -4,10 +4,10 @@
 
 ## Provide a name in place of blockscout-stack for `app:` labels
 ##
-nameOverride: ""
+nameOverride: "name"
 ## Provide a name to substitute for the full names of resources
 ##
-fullnameOverride: ""
+fullnameOverride: "fullname"
 ## Reference to one or more secrets to be used when pulling images
 ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
 ##
@@ -17,7 +17,7 @@ imagePullSecrets: []
 ##
 config:
   network:
-    id: 1
+    id: 1337 #1
     name: Ether
     shortname: Ether
     currency:
@@ -71,7 +71,30 @@ blockscout:
   ## Blockscout ENV vars
   ## ref: https://docs.blockscout.com/for-developers/information-and-settings/env-variables
   ##
-  env: []
+  #env: []
+  env:
+    - name: DATABASE_URL
+      value: "ecto://postgres:postgres@blockscout-postgresql/postgres?ssl=false"
+    - name: ETHEREUM_JSONRPC_HTTP_URL
+      value: "http://goquorum-node-validator-4:8545"
+    - name: ETHEREUM_JSONRPC_WS_URL
+      value: "ws://goquorum-node-validator-4:8545"
+    - name: SECRET_KEY_BASE
+      value: "VTIB3uHDNbvrY0+60ZWgUoUBKDn9ppLR8MI4CpRz4/qLyEFs54ktJfaNT6Z221"
+    - name: ETHEREUM_JSONRPC_VARIANT
+      value: "geth"
+    - name: ETHEREUM_JSONRPC_TRANSPORT
+      value: "http"
+    - name: BLOCKSCOUT_NETWORK
+      value: "quorum"
+    - name: BLOCKSCOUT_SUBNETWORK
+      value: "consensys"
+    - name: BLOCKSCOUT_CHAIN_ID
+      value: "1337"
+    - name: BLOCKSCOUT_COIN
+      value: "eth"
+    - name: DISABLE_EXCHANGE_RATES
+      value: "true"
     # NAME: VALUE
   # Refer to an existing Secret/ConfigMap
   extraEnv: []
@@ -128,14 +151,19 @@ blockscout:
 
   service:
     type: ClusterIP
-    port: 80
+    port: 4000 #80
   ## Configure ingress resource that allow you to access the blockscout installation.
   ## ref: http://kubernetes.io/docs/user-guide/ingress/
   ##
   ingress:
-    enabled: false
-    className: ""
-    annotations: {}
+    enabled: true #false
+    className: "alb"
+    #annotations: {}
+    annotations:
+      alb.ingress.kubernetes.io/scheme: internet-facing
+      alb.ingress.kubernetes.io/target-type: ip
+      alb.ingress.kubernetes.io/backend-protocol: HTTP
+      alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}]'
     hostname: chart-example.local
     tls:
       enabled: false
@@ -161,6 +189,19 @@ blockscout:
     requests:
       cpu: 1
       memory: 2Gi
+
+postgresql:
+  postgresqlDatabase: postgres
+  postgresqlUsername: postgres
+  postgresqlPassword: postgres
+  initdbUser: postgres
+  initdbPassword: postgres
+  enabled: true
+  image:
+    repository: postgres
+    tag: latest
+    pullPolicy: IfNotPresent
+
 ## Configuration options for frontend
 ##
 frontend:
