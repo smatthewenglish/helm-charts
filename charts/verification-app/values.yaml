@@ -2,13 +2,21 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
+# helm install verification ./verification-app -f ./verification-app/values.yaml -n xplor-00 --dry-run
+# helm install verification ./verification-app -f ./verification-app/values.yaml -n xplor-00 --debug
+#
+#
+# helm upgrade blockscout ./blockscout-stack -f ./blockscout-stack/values.yaml -n xplor-00 --debug
+# helm upgrade postgresql -f ./simple-postgresql-VALUES.yaml bitnami/postgresql -n eval-q-13 --debug
+#
+# ghcr.io/blockscout/smart-contract-verifier:latest
 replicaCount: 1
 
 image:
-  repository: ghcr.io/blockscout/verification-app
+  repository: ghcr.io/blockscout/smart-contract-verifier
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: ""
+  tag: "main"
 
 imagePullSecrets: []
 nameOverride: ""
