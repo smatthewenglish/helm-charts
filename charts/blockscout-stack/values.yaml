@@ -65,14 +65,14 @@ blockscout:
   ##
   env:
     #DATABASE_URL: postgres://postgres:uk2R1dxL3o@postgresql.eval-q-14.svc.cluster.local:5432/postgres?ssl=false
-    DATABASE_URL: postgres://postgres:zfGOmJYIiw@postgresql.xplor-00.svc.cluster.local:5432/postgres?ssl=false
+    DATABASE_URL: postgres://postgres:A8Cs12a3l7@postgresql.xplor-01.svc.cluster.local:5432/postgres?ssl=false
     ETHEREUM_JSONRPC_VARIANT: geth
     ETHEREUM_JSONRPC_HTTP_URL: http://goquorum-node-validator-2.obi-quorum.svc.cluster.local:8545 #http://goquorum-node-validator-2:8545
     ETHEREUM_JSONRPC_TRACE_URL: http://goquorum-node-validator-3.obi-quorum.svc.cluster.local:8545 #http://goquorum-node-validator-3:8545
     ## ---- ##
-    MICROSERVICE_SC_VERIFIER_ENABLED: true
-    MICROSERVICE_SC_VERIFIER_TYPE: sc_verifier
-    MICROSERVICE_SC_VERIFIER_URL: http://verification-verification-app.xplor-00.svc.cluster.local:3000
+    # MICROSERVICE_SC_VERIFIER_ENABLED: true
+    # MICROSERVICE_SC_VERIFIER_TYPE: sc_verifier
+    # MICROSERVICE_SC_VERIFIER_URL: http://verification-verification-app.xplor-00.svc.cluster.local:3000
     ## ---- ##
   extraEnv: []
   ## Command to start blockscout instance
