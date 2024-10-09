@@ -14,9 +14,9 @@ config:
   prometheus:
     enabled: false
   network:
-    id: 1337
-    name: quorum
-    shortname: quorum
+    id: 25
+    name: xplor-23
+    shortname: xplor-23
     currency:
       name: Ether
       symbol: ETH 
@@ -28,14 +28,10 @@ config:
 
 blockscout:
   enabled: true
-  ## Image parametes
-  ##
   image:
     repository: blockscout/blockscout
     pullPolicy: IfNotPresent
-    tag: "latest"
-  ## Init container configuration (used to run DB migrations)
-  ##
+    tag: "6.8.0.commit.8ce08ee5"
   init:
     enabled: true
     command:
@@ -60,23 +56,14 @@ blockscout:
     replicaCount: 1
   replicaCount: 1
   podSecurityContext: {}
-  ## Blockscout ENV vars
-  ## ref: https://docs.blockscout.com/for-developers/information-and-settings/env-variables
-  ##
+  postgresql:
+    enabled: false
   env:
-    #DATABASE_URL: postgres://postgres:uk2R1dxL3o@postgresql.eval-q-14.svc.cluster.local:5432/postgres?ssl=false
-    DATABASE_URL: postgres://postgres:A8Cs12a3l7@postgresql.xplor-01.svc.cluster.local:5432/postgres?ssl=false
     ETHEREUM_JSONRPC_VARIANT: geth
-    ETHEREUM_JSONRPC_HTTP_URL: http://goquorum-node-validator-2.obi-quorum.svc.cluster.local:8545 #http://goquorum-node-validator-2:8545
-    ETHEREUM_JSONRPC_TRACE_URL: http://goquorum-node-validator-3.obi-quorum.svc.cluster.local:8545 #http://goquorum-node-validator-3:8545
-    ## ---- ##
-    # MICROSERVICE_SC_VERIFIER_ENABLED: true
-    # MICROSERVICE_SC_VERIFIER_TYPE: sc_verifier
-    # MICROSERVICE_SC_VERIFIER_URL: http://verification-verification-app.xplor-00.svc.cluster.local:3000
-    ## ---- ##
+    DATABASE_URL: postgresql://postgres:qbbdODrXmb@postgresql.xplor-23.svc.cluster.local:5432/postgres?ssl=false
+    ETHEREUM_JSONRPC_HTTP_URL: http://goquorum-node-validator-2.obi-quorum.svc.cluster.local:8545
+    ETHEREUM_JSONRPC_TRACE_URL: http://goquorum-node-validator-3.obi-quorum.svc.cluster.local:8545
   extraEnv: []
-  ## Command to start blockscout instance
-  ##
   command:
     - /bin/sh
   args:
@@ -100,18 +87,6 @@ blockscout:
       periodSeconds: 100
       timeoutSeconds: 30
   terminationGracePeriodSeconds: 300
-  # REPLACE INGRESS
-  # ingress:
-  #   enabled: false
-  #   className: ""
-  #   annotations: {}
-  #   hostname: chart-example-stats.local
-  #   tls:
-  #     enabled: false
-  #     #secretName:
-  #   paths:
-  #     - path: /
-  #       pathType: Prefix
   ingress:
     enabled: true
     className: ""

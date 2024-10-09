@@ -62,14 +62,14 @@ resources:
     cpu: 100m
     memory: 128Mi
 
-livenessProbe:
-  httpGet:
-    path: /healthz
-    port: http
-readinessProbe:
-  httpGet:
-    path: /healthz
-    port: http
+# livenessProbe:
+#   httpGet:
+#     path: /healthz
+#     port: http
+# readinessProbe:
+#   httpGet:
+#     path: /healthz
+#     port: http
 
 # Additional volumes on the output Deployment definition.
 volumes:
@@ -92,3 +92,7 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
+
+configToml: |
+  [example]
+  setting = "value"
