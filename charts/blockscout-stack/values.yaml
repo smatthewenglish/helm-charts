@@ -15,8 +15,8 @@ config:
     enabled: false
   network:
     id: 25
-    name: xplor-23
-    shortname: xplor-23
+    name: xplor-24
+    shortname: xplor-24
     currency:
       name: Ether
       symbol: ETH 
@@ -60,7 +60,7 @@ blockscout:
     enabled: false
   env:
     ETHEREUM_JSONRPC_VARIANT: geth
-    DATABASE_URL: postgresql://postgres:qbbdODrXmb@postgresql.xplor-23.svc.cluster.local:5432/postgres?ssl=false
+    DATABASE_URL: postgresql://postgres:TvQZXCu6ba@postgresql.xplor-24.svc.cluster.local:5432/postgres?ssl=false
     ETHEREUM_JSONRPC_HTTP_URL: http://goquorum-node-validator-2.obi-quorum.svc.cluster.local:8545
     ETHEREUM_JSONRPC_TRACE_URL: http://goquorum-node-validator-3.obi-quorum.svc.cluster.local:8545
   extraEnv: []
