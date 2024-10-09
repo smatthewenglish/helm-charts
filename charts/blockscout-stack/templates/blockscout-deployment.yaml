@@ -64,10 +64,6 @@ spec:
           - name: SHOW_TESTNET_LABEL
             value: "true"
           {{- end }}
-          {{- if .Values.frontend.enabled }}
-          - name: API_V2_ENABLED
-            value: "true"
-          {{- end }}
           {{- if .Values.blockscout.ingress.enabled }}
           - name: BLOCKSCOUT_HOST
             value: {{ .Values.blockscout.ingress.hostname | quote }}
@@ -133,10 +129,6 @@ spec:
           {{- end }}
           {{- if .Values.config.testnet }}
           - name: SHOW_TESTNET_LABEL
-            value: "true"
-          {{- end }}
-          {{- if .Values.frontend.enabled }}
-          - name: API_V2_ENABLED
             value: "true"
           {{- end }}
           {{- if .Values.blockscout.ingress.enabled }}

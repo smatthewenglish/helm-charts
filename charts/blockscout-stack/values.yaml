@@ -1,14 +1,5 @@
-stats:
-  enabled: false
-
 serviceAccount:
   create: false
-
-frontend:
-  enabled: false 
-
-userOpsIndexer:
-  enabled: false 
 
 config:
   prometheus:
